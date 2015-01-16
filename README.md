@@ -26,39 +26,40 @@ sequence(
 
 ```javascript
 
-var render = combine( 
-    
-      sequence( 
-           sleep( 100 ),
-           linear('frame3', 10000, { left: -900 }, {left: 300 })
-      ),
-      sequence(
-          easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
-          easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
-          easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
-          combine(
-              easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
-              easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
-              easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
-          ),
-          sleep(1000),
-          easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
-          easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 40}),
-          sleep(1500),
-          sequence(
-            combine(
-                easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
-                easeOut('frame9', 2000, { opacity: 1, left: 40 }, { opacity: 0, left: 360})
-            ),
-            easeIn('frame2', 1000, { opacity: 0 }, { opacity: 1 }),
-            easeOut('frame10', 1000, { bottom: -260 }, { bottom: -210 })
-          )
-          
-      ),
-      sequence(
-        
-      )
-    
+var render = combine(     
+	sequence( 
+	   sleep( 100 ),
+	   linear('frame3', 10000, { left: -900 }, {left: 300 })
+	),
+	sequence(
+	  easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
+	  easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
+	  easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
+	  combine(
+	      easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
+	      easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
+	      easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
+	  ),
+	  sleep(1000),
+	  easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
+	  easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
+	  sleep(1500),
+	  sequence(
+	    combine(
+	        easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
+	        easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
+	    ),
+	    easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
+	    
+	    }),
+	    easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
+	    
+	  )
+	  
+	),
+	sequence(
+
+	)
 );
 
 // launch the animation
@@ -99,8 +100,7 @@ Then your HMTL should look something like this:
     </div>
     <div id='frame10' class ="frame">
         <div id="cta">
-            <div id="button"></div>
-            <p>SWIPE TO CLICK</p>
+            <div id="button">Download</div>
         </div>
     </div>
 </div>
