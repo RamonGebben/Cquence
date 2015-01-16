@@ -108,6 +108,19 @@ Then your HMTL should look something like this:
 </div>
 ```
 
+
+## Development
+
+We use Gulp for build tasks.
+To minify/uglify for production use:
+
+```bash
+
+ gulp compress
+
+```
+
+
 ## Licence
 
  Copyright (c) 2015 RamonGebben
