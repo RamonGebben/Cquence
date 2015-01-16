@@ -4,6 +4,8 @@
 
 Cquence is a very small Javascript animator librarie developed to for banners and advertisement.
 
+[Demo](http://ramongebben.github.io/Cquence)
+
 ## Basic usage
 
 ```javascript
