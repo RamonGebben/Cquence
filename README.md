@@ -16,8 +16,8 @@ render = combine() // Combine fires the sequences in its body the same time
 render = sequence() // Define the animations in order to create a timeline
 
 sequence(
-	easIn( :id, :time, { :from }, { :to })
-	easOut( :id, :time, { :from }, { :to })
+	easIn( :id, :time, { :from }, { :to }),
+	easOut( :id, :time, { :from }, { :to }),
 	sleep( :time ) // Wait utill time is passed
 )
 
