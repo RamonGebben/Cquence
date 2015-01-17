@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<title>Banner test</title>
+<style>
+
+  body { padding: 0; margin: 0; font-family: "Lucida Console", Monaco, monospace; }
+  div { position: absolute; overflow: hidden; }
+  #container { border: 1px solid black; width: 298px; height: 248px; background-color: black;}
+  .frame { width: 300px; height: 250px;  }
+  img { position: relative }
+  #frame1 { z-index: 500; left: -1000px; } /* Monk */
+  #frame2 { z-index: 700; left: 0px; top: -40px; opacity: 0; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); filter: alpha(opacity=0); } /* Media Monks*/
+  #frame3 { z-index: 300; width: 750px; left: -1000px; } /* Smoke */
+  #frame4 { z-index: 400; left: -1000px; } /* */
+  #frame5 { z-index: 600; left: 0px; } /* shader */
+  
+  #frame6 { z-index: 600; left: 20px; top: 120px; opacity: 0; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); filter: alpha(opacity=0);}
+  #frame6 p { color: white; font-size: 20px; }
+  /* peeps call me */
+  #frame7 { z-index: 600; top: 150px; left: 20px; opacity: 0; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); filter: alpha(opacity=0);} 
+  #frame7 p { color: white; font-size: 25px; }
+  /* Ramon */
+  
+  #frame8 { z-index: 600; top: 130px; left: 20px; opacity: 0; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); filter: alpha(opacity=0);} 
+  #frame8 p { color: white; font-size: 35px; } 
+  /* rocking it */
+  #frame9 { z-index: 600; top: 160px; left: -300px; opacity: 0; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); filter: alpha(opacity=0);} 
+  #frame9 p { color: white; font-size: 17px; } 
+  #frame9 p strong { color: white; font-size: 20px; } 
+  /* Call to action */
+  
+  #frame10 { z-index: 750; bottom: -260px; left: 0px; opacity: 1; background-image: url('http://i.imgur.com/OCHWcon.png'); background-repeat: no-repeat; background-size: 100%; background-position: center; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); filter: alpha(opacity=100);} 
+  #frame10 #cta { color: #ddd; font-weight: 900; font-size: 20px; width: 100%; background-color: #333; display: inline-block; height: 40px;  transition: background-color 0.4s ease;} 
+  #frame10 #cta:hover { background-color: #fff; transition: background-color 0.4s ease; } 
+  
+  #frame10 #cta #button { width: 100%; height: 26px; top: 6px; left: 5px; border-radius: 4px; z-index: 751; cursor: pointer; text-align: center
+  
+  ; }
+   #frame10 #cta p { position: absolute; left: 60px; top: -11px; z-index: 750; }
+   
+</style>
+
+<div id='container'>
+    <div id='frame1' class ="frame">
+        <img src="http://ra-ge.net/assets/assets_mediamonks.png">
+    </div>
+    <div id='frame2' class ="frame">
+        <img src="http://ra-ge.net/assets/assets_mediamonks.png" style="left: -300px; top: 40px;">
+    </div>
+    <div id='frame3' class ="frame">
+        <img src="http://ra-ge.net/assets/assets_mediamonks.png" style="left: -602px">
+    </div>
+    <div id='frame4' class ="frame">
+        <img src="http://ra-ge.net/assets/assets_mediamonks.png" style="left: -600px;">
+    </div>
+    <div id='frame5' class ="frame">
+        <img src="http://ra-ge.net/assets/assets_mediamonks.png" style="left: -1350px;">
+    </div>
+    <div id='frame6' class ="frame">
+        <p>Hey there,</p>
+    </div>
+    <div id='frame7' class ="frame">
+        <p>People call me</p>
+    </div>
+    <div id='frame8' class ="frame">
+        <p>Ramon Gebben</p>
+    </div>
+    <div id='frame9' class ="frame">
+        <p>And this is an awesome lib </p>
+    </div>
+    <div id='frame10' class ="frame">
+        <div id="cta">
+            <div id="button">Download</div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<script src="Cquence.js"></script>
+<script>
+  var render = Cquence.combine(     
+	Cquence.sequence( 
+	   Cquence.sleep( 100 ),
+	   Cquence.linear('frame3', 10000, { left: -900 }, {left: 300 })
+	),
+	Cquence.sequence(
+	  Cquence.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
+	  Cquence.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
+	  Cquence.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
+	  Cquence.combine(
+	      Cquence.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
+	      Cquence.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
+	      Cquence.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
+	  ),
+	  Cquence.sleep(1000),
+	  Cquence.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
+	  Cquence.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
+	  Cquence.sleep(1500),
+	  Cquence.sequence(
+	    Cquence.combine(
+	        Cquence.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
+	        Cquence.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
+	    ),
+	    Cquence.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
+	    
+	    }),
+	    Cquence.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
+	  )
+	  
+	),
+     Cquence.sequence(
+            
+    )
+);
+
+// launch the animation
+Cquence.renderloop();
+</script>
+
+
+
+
+
+
