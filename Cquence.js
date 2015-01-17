@@ -10,7 +10,6 @@ Cquence = function(){
     var IE8 = IEVERSION === 8;
     var IEWTF = IEVERSION < 8 && IEVERSION > -1;
 
-
     var style = function( e, k, v ){
         if( k === 'opacity' ){
           if( IE8 ){ // gemene browsers
