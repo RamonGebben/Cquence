@@ -9,16 +9,16 @@ Cquence is a very small Javascript animation library developed for banners and a
 ## Basic usage
 
 ```javascript
-var render = null; // Define the render object so that the renderloop knows what to render.
+render = null; // Define the render object so that the renderloop knows what to render.
 
-render = combine() // Combine fires the sequences in its body the same time
+render = Cquence.combine() // Combine fires the sequences in its body the same time
 
-render = sequence() // Define the animations in order to create a timeline
+render = Cquence.sequence() // Define the animations in order to create a timeline
 
-sequence(
-	easIn( :id, :time, { :from }, { :to }),
-	easOut( :id, :time, { :from }, { :to }),
-	sleep( :time ) // Wait utill time is passed
+Cquence.sequence(
+	Cquence.easIn( :id, :time, { :from }, { :to }),
+	Cquence.easOut( :id, :time, { :from }, { :to }),
+	Cquence.sleep( :time ) // Wait utill time is passed
 )
 
 ```
@@ -28,44 +28,41 @@ sequence(
 
 ```javascript
 
-var render = combine(     
-	sequence( 
-	   sleep( 100 ),
-	   linear('frame3', 10000, { left: -900 }, {left: 300 })
+render = Cquence.combine(     
+	Cquence.sequence( 
+	   Cquence.sleep( 100 ),
+	   Cquence.linear('frame3', 10000, { left: -900 }, {left: 300 })
 	),
-	sequence(
-	  easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
-	  easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
-	  easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
-	  combine(
-	      easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
-	      easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
-	      easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
+	Cquence.sequence(
+	  Cquence.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
+	  Cquence.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
+	  Cquence.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
+	  Cquence.combine(
+	      Cquence.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
+	      Cquence.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
+	      Cquence.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
 	  ),
-	  sleep(1000),
-	  easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
-	  easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
-	  sleep(1500),
-	  sequence(
-	    combine(
-	        easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
-	        easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
+	  Cquence.sleep(1000),
+	  Cquence.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
+	  Cquence.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
+	  Cquence.sleep(1500),
+	  Cquence.sequence(
+	    Cquence.combine(
+	        Cquence.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
+	        Cquence.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
 	    ),
-	    easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
+	    Cquence.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
 	    
 	    }),
-	    easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
+	    Cquence.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
 	    
 	  )
 	  
-	),
-	sequence(
-
 	)
 );
 
 // launch the animation
-renderloop();
+Cquence.renderloop();
 
 ```
 
