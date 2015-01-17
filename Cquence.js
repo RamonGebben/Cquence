@@ -4,6 +4,12 @@ var Cquence;
 Cquence = function(){
     var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function( f ){ setTimeout( f, 1000/60 ); }; 
     var elem = function( id ){ return document.getElementById( id ); }
+    
+    // IE checking    
+    var IEVERSION = getInternetExplorerVersion();
+    var IE8 = IEVERSION === 8;
+    var IEWTF = IEVERSION < 8 && IEVERSION > -1;
+
 
     var style = function( e, k, v ){
         if( k === 'opacity' ){
@@ -129,10 +135,6 @@ Cquence = function(){
         }
         return rv;
     }
-
-    var IEVERSION = getInternetExplorerVersion();
-    var IE8 = IEVERSION === 8;
-    var IEWTF = IEVERSION < 8 && IEVERSION > -1;
 
     var timeline = [];
     var start = (+new Date); // unix timestamp
