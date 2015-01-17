@@ -142,11 +142,11 @@ Cquence = function(){
 
     // gets called recursive by request-animation-frame
     var renderloop = function(){
-        
+        // console.log('1. ', window.render );
         var now = (+new Date) - start;      // relatieve tijd vanaf begin animatie
         if( now < stop ) raf( renderloop ); // recursion, baby
-            
-        if( render ) render.f( now );
+        // console.log('2. ', window.render );
+        if( window.render ) window.render.f( now );
         
     }
 
