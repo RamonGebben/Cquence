@@ -1,0 +1,10 @@
+{
+  "name": "Cquence",
+  "description": "A very tiny Javascript animation library",
+  "author": "Ramon Gebben <cquence@ra-ge.net>",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-uglify": "^1.0.2"
+  }
+}
