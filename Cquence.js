@@ -1,7 +1,7 @@
 
-var Cquence;
+var Cq;
 
-Cquence = function(){
+Cq = function(){
     var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function( f ){ setTimeout( f, 1000/60 ); };
     var elem = function( id ){ return document.getElementById( id ); };
 
