@@ -2,6 +2,8 @@
 
 # Cquence.js
 
+[![Build Status](https://travis-ci.org/RamonGebben/Cquence.svg?branch=master)](https://travis-ci.org/RamonGebben/Cquence)
+
 Cquence is a very small Javascript animation library developed for banners and advertisement.
 
 [Demo](http://ramongebben.github.io/Cquence)
@@ -28,8 +30,8 @@ Cquence.sequence(
 
 ```javascript
 
-render = Cquence.combine(     
-	Cquence.sequence( 
+render = Cquence.combine(
+	Cquence.sequence(
 	   Cquence.sleep( 100 ),
 	   Cquence.linear('frame3', 10000, { left: -900 }, {left: 300 })
 	),
@@ -52,12 +54,12 @@ render = Cquence.combine(
 	        Cquence.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
 	    ),
 	    Cquence.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
-	    
+
 	    }),
 	    Cquence.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
-	    
+
 	  )
-	  
+
 	)
 );
 
@@ -66,7 +68,7 @@ Cquence.renderloop();
 
 ```
 
-Then your HMTL should look something like this: 
+Then your HMTL should look something like this:
 
 ```html
 <div id='container'>
@@ -142,4 +144,3 @@ To minify/uglify for production use:
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
-
