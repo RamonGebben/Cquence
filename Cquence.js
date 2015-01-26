@@ -1,9 +1,10 @@
 
 var Cq;
 
-Cq = function(){
+Cq = (function(){
     var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function( f ){ setTimeout( f, 1000/60 ); };
     var elem = function( id ){ return document.getElementById( id ); };
+    var animations = [];
 
     // IE checking
     var IEVERSION = getInternetExplorerVersion();
@@ -31,23 +32,30 @@ Cq = function(){
         for( var i=0; i<list.length; i++ ){
             d = Math.max( list[i].d, d );
         }
-        return {
-            d: d,
-            f: function( t ){
-                for( var i=0; i<list.length; i++ ){
-                    var last = list[i];
-                    if( last.d > t ){
-                        last.f( t );
-                    } else {
-                      if( !last.done ){
-                          last.f( last.d );
-                          last.done = true;
-                      }
-                    }
-
+        var ff = function( t ){
+            for( var i=0; i<list.length; i++ ){
+                var last = list[i];
+                if( last.d > t ){
+                    last.f( t );
+                } else {
+                  if( !last.done ){
+                      last.f( last.d );
+                      last.done = true;
+                  }
                 }
+
             }
         };
+        var self = {
+            d: d,
+            f: ff,
+            start: function( cb ){
+                var ss = (+ new Date());
+                animations.push({f: ff, start: ss, stop: ss + d, cb: cb });
+                return self;
+            } 
+        };
+        return self;
     };
 
     var sequence = function(){
@@ -57,9 +65,7 @@ Cq = function(){
         for( var i=0; i<timeline.length; i++ ){
             d = d + timeline[i].d;
         }
-        return {
-            d: d,
-            f: function( t ){
+        var ff = function( t ){
 
                 var last = null;
                 var total = 0;
@@ -76,31 +82,54 @@ Cq = function(){
                     }
                     total = total + last.d;
                 }
+        };
+        var self = {
+            d: d,
+            f: ff,
+            start: function( cb ){
+                var ss = (+ new Date());
+                animations.push({f: ff, start: ss, stop: ss + d, cb: cb });
+                return self;
             }
         };
+        return self;
+    };
+
+    var repeat = function( a, c ){
+        var result = a;
+        for( var i = 0; i < c; i++ ){
+            result = Cq.sequence( result, a );
+         }
     };
 
     var animate = function( transform ){
         return function( id, dur, begin, fin ){
-            return {
-                d: dur,
-                f: function( t ){
-                    var e = elem( id );
-                    for( var k in begin ){
+            var ff = function( t ){
+                var e = elem( id );
+                for( var k in begin ){
 
-                        var bv = begin[k]; // begin waarde
-                        var fv = fin[k];   // finish waarde
-                        var dx = fv - bv;  // verschil (afstand)
+                    var bv = begin[k]; // begin waarde
+                    var fv = fin[k];   // finish waarde
+                    var dx = fv - bv;  // verschil (afstand)
 
-                        // p is nu een waarde tussen de 0 en 1 .. en geeft aan hoe ver de animatie is
-                        var p = transform( Math.max( t/dur, 0 ) );
+                    // p is nu een waarde tussen de 0 en 1 .. en geeft aan hoe ver de animatie is
+                    var p = transform( Math.max( t/dur, 0 ) );
 
-                        // nieuwe waarde is de factor maal de afstand
-                        var nv = bv + (p * dx);
-                        style( e, k, nv );
-                    }
+                    // nieuwe waarde is de factor maal de afstand
+                    var nv = bv + (p * dx);
+                    style( e, k, nv );
                 }
             };
+            var self = {
+                d: dur,
+                f: ff,                
+                start: function( cb ){
+                    var ss = (+ new Date());
+                    animations.push({f: ff, start: ss, stop: ss + dur, cb: cb });
+                    return self;
+                }
+            };
+            return self;
         };
     };
 
@@ -135,21 +164,24 @@ Cq = function(){
         return rv;
     }
 
-    var timeline = [];
-    var start = (+new Date()); // unix timestamp
-    var second = 1000;
-    var stop = 15 * second;
-    var render = null;
-
     // gets called recursive by request-animation-frame
     var renderloop = function(){
-        // console.log('1. ', window.render );
-        var now = (+new Date()) - start;      // relatieve tijd vanaf begin animatie
-        if( now < stop ) raf( renderloop ); // recursion, baby
-        // console.log('2. ', window.render );
-        if( window.render ) window.render.f( now );
+        var a;       
+        var now = (+new Date()); // relative time from when animation started            
+        raf( renderloop ); // recursion, baby
+        for( var i=0; i<animations.length; i++ ){
+            a = animations[i];
+            a.f( Math.min( now, a.stop ) - a.start );
+            if( now >= a.stop ){
+                if( a.cb ) a.cb();
+                animations.splice( i, 1 );
+            }
+        }                     
 
     };
+
+    // launch the render loop
+    renderloop();
 
     return {
         combine: combine,
@@ -158,8 +190,9 @@ Cq = function(){
         animate: animate,
         easeIn: easeIn,
         easeOut: easeOut,
+        repeat: repeat,
         sleep: sleep,
-        renderloop: renderloop
+        animations: animations
     };
 
-}();
+})();

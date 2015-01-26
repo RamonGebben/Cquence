@@ -67,10 +67,10 @@
     <div id='frame9' class ="frame">
         <p>And this is an awesome lib </p>
     </div>
-    <div id='frame10' class ="frame">
+    <div id='frame10' class ="frame">                     
         <div id="cta">
             <div id="button">Download</div>
-        </div>
+        </div>  
     </div>
 </div>
 
@@ -78,41 +78,39 @@
 
 <script src="Cquence.js"></script>
 <script>
-  render = Cq.combine(
-	Cq.sequence(
-	   Cq.sleep( 100 ),
-	   Cq.linear('frame3', 10000, { left: -900 }, {left: 300 })
-	),
-	Cq.sequence(
-	  Cq.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
-	  Cq.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
-	  Cq.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
-	  Cq.combine(
-	      Cq.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
-	      Cq.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
-	      Cq.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
-	  ),
-	  Cq.sleep(1000),
-	  Cq.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
-	  Cq.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
-	  Cq.sleep(1500),
-	  Cq.sequence(
-	    Cq.combine(
-	        Cq.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
-	        Cq.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
-	    ),
-	    Cq.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
 
-	    }),
-	    Cq.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
-	  )
+  Cq.combine(
+  	Cq.sequence(
+  	   Cq.sleep( 100 ),
+  	   Cq.linear('frame3', 10000, { left: -900 }, {left: 300 })
+  	),
+  	Cq.sequence(
+  	  Cq.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
+  	  Cq.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
+  	  Cq.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
+  	  Cq.combine(
+  	      Cq.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
+  	      Cq.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
+  	      Cq.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
+  	  ),
+  	  Cq.sleep(1000),
+  	  Cq.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
+  	  Cq.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
+  	  Cq.sleep(1500),
+  	  Cq.sequence(
+  	    Cq.combine(
+  	        Cq.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
+  	        Cq.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
+  	    ),
+  	    Cq.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
 
-	),
-     Cq.sequence(
+  	    }),
+  	    Cq.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
+  	  )
 
-    )
-);
+  	)
+  ).start( function(){
+    console.log("This is fired after the animation has taken place");
+  });
 
-// launch the animation
-Cq.renderloop();
 </script>
