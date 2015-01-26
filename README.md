@@ -4,24 +4,33 @@
 
 [![Build Status](https://travis-ci.org/RamonGebben/Cquence.svg?branch=master)](https://travis-ci.org/RamonGebben/Cquence)
 
-Cquence is a very small Javascript animation library developed for banners and advertisement.
+Cquence is a very small Javascript animation library.
+
+<!-- Explain here -->
 
 [Demo](http://ramongebben.github.io/Cquence)
 
 ## Basic usage
 
 ```javascript
-render = null; // Define the render object so that the renderloop knows what to render.
 
-render = Cquence.combine() // Combine fires the sequences in its body the same time
+Cquence.combine().start() // Combine fires the sequences in its body the same time
 
-render = Cquence.sequence() // Define the animations in order to create a timeline
+Cquence.sequence().start // Define the animations in order to create a timeline
 
 Cq.sequence(
 	Cq.easIn( :id, :time, { :from }, { :to }),
 	Cq.easOut( :id, :time, { :from }, { :to }),
 	Cq.sleep( :time ) // Wait utill time is passed
-)
+).start()
+
+Cq.sequence(
+    Cq.easIn( :id, :time, { :from }, { :to }),
+    Cq.easOut( :id, :time, { :from }, { :to }),
+    Cq.sleep( :time ) // Wait utill time is passed
+).start( function(){
+    // Do stuff here after animation is finished
+})
 
 ```
 
@@ -29,37 +38,39 @@ Cq.sequence(
 
 ```javascript
 
-render = Cq.combine(
-	Cq.sequence(
-	   Cq.sleep( 100 ),
-	   Cq.linear('frame3', 10000, { left: -900 }, {left: 300 })
-	),
-	Cq.sequence(
-	  Cq.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
-	  Cq.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
-	  Cq.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
-	  Cq.combine(
-	      Cq.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
-	      Cq.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
-	      Cq.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
-	  ),
-	  Cq.sleep(1000),
-	  Cq.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
-	  Cq.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
-	  Cq.sleep(1500),
-	  Cq.sequence(
-	    Cq.combine(
-	        Cq.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
-	        Cq.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
-	    ),
-	    Cq.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0 }),
-	    Cq.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
-	  )
-	)
-);
+  Cq.combine(
+    Cq.sequence(
+       Cq.sleep( 100 ),
+       Cq.linear('frame3', 10000, { left: -900 }, {left: 300 })
+    ),
+    Cq.sequence(
+      Cq.easeOut('frame1', 2000, { left: -1000 }, { left: 120 }),
+      Cq.easeIn('frame6', 1000, { opacity: 0 }, { opacity: 1}),
+      Cq.easeIn('frame7', 1000, { opacity: 0 }, { opacity: 1}),
+      Cq.combine(
+          Cq.easeIn('frame6', 1500, { opacity: 1 }, { opacity: 0}),
+          Cq.easeIn('frame7', 1500, { opacity: 1 }, { opacity: 0}),
+          Cq.easeIn('frame8', 1500, { opacity: 0 }, { opacity: 1})
+      ),
+      Cq.sleep(1000),
+      Cq.easeIn('frame8', 1000, { opacity: 1 }, { opacity: 0}),
+      Cq.easeIn('frame9', 1000, { opacity: 0, left: -300 }, { opacity: 1, left: 10}),
+      Cq.sleep(1500),
+      Cq.sequence(
+        Cq.combine(
+            Cq.easeIn('frame1', 1500, { left: 120 }, { left: -620 }),
+            Cq.easeOut('frame9', 2000, { opacity: 1, left: 10 }, { opacity: 0, left: -300 })
+        ),
+        Cq.easeIn('frame2', 1000, { opacity: 0 },{ opacity: 0
 
-// launch the animation
-Cq.renderloop();
+        }),
+        Cq.easeOut('frame10', 1000, { bottom: -260 }, { bottom: 0 })
+      )
+
+    )
+  ).start( function(){
+    console.log("This is fired after the animation has taken place");
+  });
 
 ```
 
@@ -105,15 +116,6 @@ Then your HMTL should look something like this:
 
 ## Development
 
-We use Gulp for build tasks.
-To minify/uglify for production use:
-
-```bash
-
- gulp compress
-
-```
-
 ### Linting
 
 We use jshint for linting.
@@ -125,6 +127,16 @@ Run the gulp task to check.
 
 ```
 
+### Compressing
+
+We use Gulp for build tasks.
+To minify/uglify for production use:
+
+```bash
+
+ gulp compress
+
+```
 
 ## Licence
 
